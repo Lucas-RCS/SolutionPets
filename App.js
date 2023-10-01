@@ -1,43 +1,77 @@
-import React from 'react';
+import * as React from 'react';
+import { View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BookBookmark, CalendarPlus, PawPrint } from 'phosphor-react-native';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button, Div } from './assets/elements/common.js';
+import { Home } from './src/pages/HomeScreen/HomeScreen';
+import { Wiki } from './src/pages/WikiScreen/WikiScreen';
+import { Agenda } from './src/pages/AgendaScreen/Agenda';
 
-// #48ff9a
+function HomeScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Home />
+    </View>
+  );
+}
 
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-    flex: 1,
-    backgroundColor: '#f8f9fc',
-    fontSize: '2rem',
-    fontWeight: '600',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '2%',
-  },
-});
+function WikiScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Wiki />
+    </View>
+  );
+}
 
+function CalendaryScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Agenda />
+    </View>
+  );
+}
 
-class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Div>
-          <Button>
-            <BookBookmark size={38} color="#48ff9a" />
-          </Button>
-          <Button>
-            <PawPrint size={38} color="#48ff9a" />
-          </Button>
-          <Button>
-            <CalendarPlus size={38} color="#48ff9a" />
-          </Button>
-        </Div>
-      </View>
-    );
-  }
-};
+const Tab = createBottomTabNavigator();
 
-export default App;
+export default function App() {
+  return (
+      <NavigationContainer >
+        <Tab.Navigator
+          initialRouteName='Home'
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconComponent;
+
+              if (route.name === 'Home') {
+                iconComponent = focused ? (
+                  <PawPrint size={34} color={color} weight='duotone' style={{ marginTop: '10%' }} />
+                ) : (
+                  <PawPrint size={34} color='gray' weight='duotone' style={{ marginTop: '10%' }} />
+                );
+              } else if (route.name === 'Agenda') {
+                iconComponent = focused ? (
+                  <CalendarPlus size={34} color={color} weight='duotone' style={{ marginTop: '10%' }} />
+                ) : (
+                  <CalendarPlus size={34} color='gray' weight='duotone' style={{ marginTop: '10%' }} />
+                );
+              } else if (route.name === 'WikiPets') {
+                iconComponent = focused ? (
+                  <BookBookmark size={34} color={color} weight='duotone' style={{ marginTop: '10%' }} />
+                ) : (
+                  <BookBookmark size={34} color='gray' weight='duotone' style={{ marginTop: '10%' }} />
+                );
+              }
+
+              return iconComponent;
+            },
+            tabBarActiveTintColor: '#48ff9a',
+            tabBarInactiveTintColor: 'gray',
+          })}
+        >
+          <Tab.Screen name="WikiPets" component={WikiScreen} options={{ tabBarLabel: ' ' }} />
+          <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarLabel: ' ' }} />
+          <Tab.Screen name="Agenda" component={CalendaryScreen} options={{ tabBarLabel: ' ' }} />
+        </Tab.Navigator>
+      </NavigationContainer>
+  );
+}
