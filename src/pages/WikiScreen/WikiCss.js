@@ -15,6 +15,15 @@ const style = StyleSheet.create({
         resizeMode: 'contain',
         borderRadius: 10,
     },
+    text: {
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: 'bold',
+        zIndex: 999,
+    },
+    icons: {
+        marginLeft: '2%',
+    },
 });
 
 export default style;
