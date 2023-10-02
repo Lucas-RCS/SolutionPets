@@ -4,6 +4,9 @@ import style from './WikiCss.js';
 import { DivCard, DivCommon, DivContent, DivImage } from '../../elements/common.js';
 import { useFocusEffect } from '@react-navigation/native';
 import { Cat, Dog, Horse } from 'phosphor-react-native';
+import { CardCats } from '../../component/CardCats/Cats.js';
+import { CardDogs } from '../../component/CardDogs/Dogs.js';
+import { CardHorse } from '../../component/CardHorse/Horse.js';
 
 export function Wiki() {
     const translateYAnim = new Animated.Value(10);
@@ -34,7 +37,7 @@ export function Wiki() {
         if (cardNumber === 1) {
             setDivContent1Visible(!isDivContent1Visible);
             Animated.timing(divContentHeight1, {
-                toValue: isDivContent1Visible ? 0 : 200,
+                toValue: isDivContent1Visible ? 0 : 350,
                 duration: 500,
                 easing: Easing.linear,
                 useNativeDriver: false,
@@ -42,7 +45,7 @@ export function Wiki() {
         } else if (cardNumber === 2) {
             setDivContent2Visible(!isDivContent2Visible);
             Animated.timing(divContentHeight2, {
-                toValue: isDivContent2Visible ? 0 : 200,
+                toValue: isDivContent2Visible ? 0 : 350,
                 duration: 500,
                 easing: Easing.linear,
                 useNativeDriver: false,
@@ -50,7 +53,7 @@ export function Wiki() {
         } else if (cardNumber === 3) {
             setDivContent3Visible(!isDivContent3Visible);
             Animated.timing(divContentHeight3, {
-                toValue: isDivContent3Visible ? 0 : 200,
+                toValue: isDivContent3Visible ? 0 : 350,
                 duration: 500,
                 easing: Easing.linear,
                 useNativeDriver: false,
@@ -80,7 +83,7 @@ export function Wiki() {
                         <Animated.View style={{ height: divContentHeight1 }}>
                             {isDivContent1Visible && (
                                 <DivContent>
-                                    <Text style={style.text}>Cães</Text>
+                                    <CardCats/>
                                 </DivContent>
                             )}
                         </Animated.View>
@@ -99,7 +102,7 @@ export function Wiki() {
                         <Animated.View style={{ height: divContentHeight2 }}>
                             {isDivContent2Visible && (
                                 <DivContent>
-                                    <Text style={style.text}>Outros Animais</Text>
+                                    <CardDogs/>
                                 </DivContent>
                             )}
                         </Animated.View>
@@ -117,7 +120,7 @@ export function Wiki() {
                         <Animated.View style={{ height: divContentHeight3 }}>
                             {isDivContent3Visible && (
                                 <DivContent>
-                                    <Text style={style.text}>Outros Animais</Text>
+                                    <CardHorse/>
                                 </DivContent>
                             )}
                         </Animated.View>

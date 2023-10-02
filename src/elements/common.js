@@ -13,10 +13,10 @@ export const DivCommon = styled.View`
 
 export const DivContent = styled.View`
     width: 100%;
-    height: 200px;
+    height: 350px;
     display: flex;
     flex-direction: row;
-    padding: 5%;
+    padding: 2%;
 
 `;
 
