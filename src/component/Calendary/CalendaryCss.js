@@ -3,13 +3,11 @@ import { StyleSheet } from 'react-native';
 
 const style = StyleSheet.create({
     container: {
+        flex: 1,
         width: '100%',
         height: '100%',
-        flex: 0,
-        backgroundColor: '#f8f9fc',
+        backgroundColor: '#141415',
     },
-   
+ 
 });
-
 export default style;
-

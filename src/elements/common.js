@@ -1,5 +1,12 @@
 import styled from 'styled-components/native'
 
+
+
+export const Div = styled.View`
+    width: 100%;
+`;
+
+
 export const DivCommon = styled.View`
     width: 100%;
     height: auto;

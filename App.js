@@ -73,9 +73,6 @@ export default function App() {
       >
         <Tab.Screen name="WikiPets" component={WikiScreen}
           options={{
-            // title: '',
-            // headerShown: false,
-            // headerTransparent: true,
             tabBarLabel: ' ',
             headerTitleStyle: { color: '#141415' },
             headerBackground: () => (
@@ -90,6 +87,9 @@ export default function App() {
         />
         <Tab.Screen name="Home" component={HomeScreen}
           options={{
+            title: '',
+            headerShown: false,
+            headerTransparent: true,
             tabBarLabel: ' ',
             headerTitleStyle: { color: '#141415' },
             headerBackground: () => (

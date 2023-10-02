@@ -1,7 +1,9 @@
 import React from 'react';
-import { ScrollView, Animated } from 'react-native';
+import { ScrollView, Animated, View } from 'react-native';
 import style from './HomeCss.js';
 import { useFocusEffect } from '@react-navigation/native';
+import { Dashboard } from '../../component/DashBoard/Dashboard.js';
+
 
 export function Home() {
   const translateYAnim = new Animated.Value(10);
@@ -37,11 +39,7 @@ export function Home() {
           },
         ]}
       >
-       
-
-
-
-
+        <Dashboard />
       </Animated.View>
     </ScrollView>
   );
