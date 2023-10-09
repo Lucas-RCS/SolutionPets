@@ -1,72 +1,78 @@
-import React, { useState } from 'react';
-import { View, Text, Modal, TouchableOpacity } from 'react-native';
-import DatePicker from 'react-native-modern-datepicker';
-import { getToday, getFormatedDate } from 'react-native-modern-datepicker';
-import style from './CalendaryCss.js';
-import { Div, DivCommon } from '../../elements/common.js';
-import { CalendarX, FloppyDisk, PlusCircle } from 'phosphor-react-native';
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Calendar, CalendarPlus, Trash } from "phosphor-react-native";
+import style from "./CalendaryCss";
+import moment from "moment-timezone";
+import { v4 as idDate } from "uuid";
 
 export function Calendary() {
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [selectedDates, setSelectedDates] = useState([]);
 
-  const today = new Date();
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
 
-  const startDate = getFormatedDate(today.setDate(today.getDate() + 1), 'YYYY/MM/DD');
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
 
-  const [open, setOpen] = useState(false);
-  const [date, setDate] = useState('');
-  // console.log(date);
+  const formatDateTime = (date) => {
+    const isoFormattedDate = moment(date, "DD/MM/YYYY HH:mm:ss", true);
+    if (isoFormattedDate.isValid()) {
+      return isoFormattedDate.format("DD/MM/YYYY HH:mm:ss");
+    } else {
+      console.error("Data e hora no formato inválido:", date);
+      return "Data e hora inválidas";
+    }
+  };
 
-  function handleOnPress() {
-    setOpen(!open);
-  }
-  function handleChange(propDate) {
-    setDate(propDate);
-  }
+
+  const handleConfirm = (date) => {
+    const formattedDate = formatDateTime(date);
+    const id = idDate();
+
+    setSelectedDates([...selectedDates, { id, date: formattedDate }]);
+
+    hideDatePicker();
+  };
+
+  const handleDeleteDate = (id) => {
+    const updatedDates = selectedDates.filter((date) => date.id !== id);
+    setSelectedDates(updatedDates);
+  };
 
   return (
     <View style={style.container}>
-      <TouchableOpacity onPress={handleOnPress}>
-        <DivCommon>
-          <Div style={style.openBtn}>
-            <PlusCircle size={32} weight='duotone' color='#141415' />
-            <Text style={style.textBtn}>
-              Adicionar Data
-            </Text>
-          </Div>
-        </DivCommon>
+      <TouchableOpacity onPress={showDatePicker} style={style.buttonContainer}>
+        <CalendarPlus size={32} weight="duotone" color="#141415" />
+        <Text style={style.buttonText}>Selecione a Data</Text>
       </TouchableOpacity>
-      <Modal
-        animationType='slide'
-        transparent={true}
-        visible={open}
-      >
-        <View style={style.content}>
-          <View style={style.modalView}>
-            <DatePicker
-              mode='calendar'
-              selected={date}
-              minimumDate={startDate}
-              onDateChange={handleChange}
-              options={{
-                backgroundColor: '#141415',
-                textColor: '#f8f9fc', 
-                textHeaderColor: '#f8f9fc',
-                selectorColor: '#48ff9a', 
-                mainColor: '#48ff9a',
-                textDefaultColor: '#f8f9fc',
-              }}
-            />
-            <TouchableOpacity onPress={handleOnPress}>
-            <Div style={style.closeBtn}>
-            <FloppyDisk size={32} weight='duotone' color='#141415' />
-            <Text style={style.textBtn}>
-              Salvar
-            </Text>
-          </Div>
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="datetime"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+      />
+
+      <FlatList
+        data={selectedDates}
+        style={style.dateList}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
+          <View style={style.dateCard}>
+            <Calendar size={32} weight="duotone" color="#f8f9fc" />
+            <Text style={style.txtDateTime}>{`Dia: ${formatDateTime(item.date)}`}</Text>
+            <TouchableOpacity
+              onPress={() => handleDeleteDate(item.id)}
+              style={style.deleteButton}
+            >
+              <Text><Trash size={30} weight="duotone" color="#d61818" /></Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </Modal>
+        )}
+      />
     </View>
   );
 }
