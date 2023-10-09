@@ -6,7 +6,6 @@ import { Info } from 'phosphor-react-native';
 
 export function CardCats() {
   return (
-    <View style={style.container}>
       <DataTable style={style.container}>
         <DataTable.Header style={style.tableHeader}>
           <DataTable.Title>
@@ -80,6 +79,5 @@ export function CardCats() {
           <Text style={{ color: '#48ff9a', fontWeight: 'bold', marginLeft: 5 }}>Quantidade diária recomendada</Text>
         </View>
       </DataTable>
-    </View>
   );
 }

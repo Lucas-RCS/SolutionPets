@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ScrollView, Animated, Image, Text, TouchableOpacity, Easing } from 'react-native';
+import { ScrollView, Animated, Image, Text, TouchableOpacity, Easing,  } from 'react-native';
 import style from './WikiCss.js';
 import { DivCard, DivCommon, DivContent, DivImage } from '../../elements/common.js';
 import { useFocusEffect } from '@react-navigation/native';

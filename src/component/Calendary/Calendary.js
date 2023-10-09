@@ -4,7 +4,7 @@ import DatePicker from 'react-native-modern-datepicker';
 import { getToday, getFormatedDate } from 'react-native-modern-datepicker';
 import style from './CalendaryCss.js';
 import { Div, DivCommon } from '../../elements/common.js';
-import { CalendarX, PlusCircle } from 'phosphor-react-native';
+import { CalendarX, FloppyDisk, PlusCircle } from 'phosphor-react-native';
 
 export function Calendary() {
 
@@ -58,9 +58,9 @@ export function Calendary() {
             />
             <TouchableOpacity onPress={handleOnPress}>
             <Div style={style.closeBtn}>
-            <CalendarX size={32} weight='duotone' color='#141415' />
+            <FloppyDisk size={32} weight='duotone' color='#141415' />
             <Text style={style.textBtn}>
-              Fechar
+              Salvar
             </Text>
           </Div>
             </TouchableOpacity>

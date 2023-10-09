@@ -6,7 +6,6 @@ import { Info } from 'phosphor-react-native';
 
 export function CardDogs() {
   return (
-    <View style={style.container}>
       <DataTable style={style.container}>
         <DataTable.Header style={style.tableHeader}>
           <DataTable.Title>
@@ -30,7 +29,6 @@ export function CardDogs() {
             <Text style={style.txtTable}>55g a 95g</Text>
           </DataTable.Cell>
         </DataTable.Row >
-
         <DataTable.Row style={{ borderColor: '#48ff9a' }}>
           <DataTable.Cell>
             <Text style={style.txtTable}>Pequeno</Text>
@@ -69,6 +67,5 @@ export function CardDogs() {
           <Text style={{ color: '#48ff9a', fontWeight: 'bold', marginLeft: 5 }}>Quantidade diária recomendada</Text>
         </View>
       </DataTable>
-    </View>
   );
 }

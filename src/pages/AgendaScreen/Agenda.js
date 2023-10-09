@@ -3,6 +3,7 @@ import { ScrollView, Animated } from 'react-native';
 import style from './AgendaCss.js';
 import { useFocusEffect } from '@react-navigation/native';
 import { Calendary } from '../../component/Calendary/Calendary.js';
+import Example from '../../component/Calendary/calendarioTest/teste.js';
 
 export function Agenda() {
   const translateYAnim = new Animated.Value(10);
@@ -38,7 +39,8 @@ export function Agenda() {
           },
         ]}
       >
-       <Calendary/>
+        {/* <Calendary/> */}
+        <Example />
 
       </Animated.View>
     </ScrollView>
