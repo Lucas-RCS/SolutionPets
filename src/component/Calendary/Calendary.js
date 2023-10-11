@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Calendar, CalendarPlus, Trash } from "phosphor-react-native";
+import { Calendar, CalendarPlus, FloppyDisk, Trash } from "phosphor-react-native";
 import style from "./CalendaryCss";
 import moment from "moment-timezone";
 import { v4 as idDate } from "uuid";
@@ -73,6 +73,9 @@ export function Calendary() {
           </View>
         )}
       />
+      <TouchableOpacity onPress={() => {}} style={style.saveBtn}>
+        <FloppyDisk size={38} weight="duotone" color="#141415" />
+      </TouchableOpacity>
     </View>
   );
 }

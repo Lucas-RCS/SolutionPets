@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, ImageBackground, Text } from 'react-native';
 import style from './DashboardCss.js';
-import { Div } from '../../elements/common.js';
+import { Div, DivCard } from '../../elements/common.js';
 import { Image } from 'react-native';
+import { Info, Scales } from 'phosphor-react-native';
+import { Tooltip } from 'react-native-elements';
 
 export function Dashboard() {
     return (
@@ -23,7 +25,39 @@ export function Dashboard() {
                     </ImageBackground>
                 </Div>
                 <Div style={style.content}>
-                    
+                    <DivCard style={style.card}>
+                        <View style={style.containerCard}>
+                            <View style={style.viewInfo}>
+                                <Tooltip backgroundColor='#48ff9a' height={60} width={300}
+                                    popover={
+                                        <Text style={style.tooltipTxt}>
+                                            Medido com base no peso de cada porção dispejado no pote de ração
+                                        </Text>
+                                    }>
+                                    <Info size={32} weight="duotone" color="#141415" />
+                                </Tooltip>
+                                <Text style={style.txtInfo}>
+                                    Quantidade de Ração
+                                </Text>
+                            </View>
+                            <View style={style.contentCard}>
+                                <Div style={style.divLeft}>
+                                    <Scales size={100} weight="duotone" color="#141415" />
+                                    <Text style={style.txtInfo}>Balança</Text>
+                                </Div>
+                                <Div style={style.divRight}>
+                                    <Text style={style.txtCardRight}>
+                                        100%
+                                    </Text>
+                                </Div>
+                            </View>
+                        </View>
+                    </DivCard>
+                    <DivCard style={style.card}>
+                        <View style={style.contentCard}>
+
+                        </View>
+                    </DivCard>
                 </Div>
             </View>
         </View>

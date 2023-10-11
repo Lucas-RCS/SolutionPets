@@ -7,6 +7,7 @@ const style = StyleSheet.create({
         width: '100%',
         height: '100%',
         backgroundColor: '#f8f9fc',
+        alignItems: 'center',
     },
     buttonContainer: {
         width: '100%',
@@ -50,5 +51,24 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
         alignItems: 'center',
     },    
+    saveBtn:{
+        width: 70,
+        height: 70,
+        backgroundColor: '#48ff9a',
+        borderRadius: 100,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowColor: '#141415',
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.25,
+        position: 'absolute',
+        elevation: 5,
+        bottom: 0,
+        right: 0,
+    },
 });
 export default style;
