@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Touchable, View } from "react-native";
+import style from "./Appcss.js";
+import { View, TouchableOpacity, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BookBookmark, CalendarPlus, PawPrint } from "phosphor-react-native";
 import { Home } from "./src/pages/HomeScreen/HomeScreen";
 import { Wiki } from "./src/pages/WikiScreen/WikiScreen";
 import { Agenda } from "./src/pages/AgendaScreen/Agenda";
-import { Button, Text } from "react-native-elements";
+import { Text } from "react-native-elements";
 import { TextInput } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import loginHook from "./api/hooks/login";
@@ -65,15 +66,29 @@ export default function App() {
   return (
     <>
       {login ? (
-        <View style={{ justifyContent: "center", flex: 1, padding: "5%" }}>
-          <Text>{text}</Text>
-          <TextInput
-            value={pass}
-            onChangeText={(value) => setPass(value)}
-            placeholder="Senha"
-          />
-          <Button onPress={makeLogin} title="teste" color="#48ff9a" />
-        </View>
+        <View style={style.container}>
+          <View style={style.img}>
+            <Image
+              source={require('./assets/img/logo_green.png')}
+              style={{ width: "100%", height: "100%"}}
+            />
+            
+          </View>
+          <View style={style.content}>
+            <Text style={style.title}>{text}</Text>
+            <View style={style.form} >
+              <TextInput
+                value={pass}
+                onChangeText={(value) => setPass(value)}
+                placeholder="Senha"
+                style={style.input}
+              />
+              <TouchableOpacity onPress={makeLogin} style={style.btn}>
+                <Text style={style.btnText}>Login</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View >
       ) : (
         <NavigationContainer>
           <Tab.Navigator
@@ -200,7 +215,8 @@ export default function App() {
             />
           </Tab.Navigator>
         </NavigationContainer>
-      )}
+      )
+      }
     </>
   );
 }
