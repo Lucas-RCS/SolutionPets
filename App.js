@@ -64,7 +64,7 @@ export default function App() {
 
           setText(data.message);
 
-          setTimeout(() => setLogin(false), 2000);
+          setTimeout(() => setLogin(false), 1000);
         }
       })
       .catch((error) => {

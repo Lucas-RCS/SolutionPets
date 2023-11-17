@@ -6,22 +6,34 @@ import { Image } from "react-native";
 import { Envelope, Info, Scales } from "phosphor-react-native";
 import { Tooltip } from "react-native-elements";
 import infoHook from "../../../api/hooks/info";
+import moment from "moment-timezone";
 
 export function Dashboard() {
-  const [lastResquest, setLastResquest] = useState([]);
-  const [feedWeight, setFeedWeight] = useState([]);
+  const [lastResquest, setLastResquest] = useState({
+    date: "00/00/0000",
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+  const [feedWeight, setFeedWeight] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       infoHook()
         .then(async (data) => {
+          data.last_resquest.date = moment(data.last_resquest.date)
+            .format("DD/MM/YYYY")
+            .toString();
+
           setLastResquest(data.last_resquest);
           setFeedWeight(data.feed_weight);
         })
         .catch((error) => {
           console.log(error);
         });
-    }, 7000);
+    }, 1000);
+
     return () => clearInterval(interval);
   }, []);
 
@@ -71,7 +83,7 @@ export function Dashboard() {
                   <Text style={style.txtInfo}>Balança</Text>
                 </Div>
                 <Div style={style.divRight}>
-                  <Text style={style.txtCardRight}>100g</Text>
+                  <Text style={style.txtCardRight}>{feedWeight}g</Text>
                 </Div>
               </View>
             </View>
@@ -97,7 +109,7 @@ export function Dashboard() {
 
               <View style={style.contentCard}>
                 <Div style={style.divLeft2}>
-                  <Text style={style.txtCardLeft2}>00/00/0000</Text>
+                  <Text style={style.txtCardLeft2}>{lastResquest.date}</Text>
                 </Div>
                 <Div style={style.divRight2}>
                   <Envelope size={80} weight="duotone" color="#141415" />

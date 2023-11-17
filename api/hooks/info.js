@@ -25,7 +25,7 @@ export default async () => {
 
             resolve({
               last_resquest: last_resquest_data,
-              feed_weight: feed_weight_data,
+              feed_weight: feed_weight_data.feedWeight,
             });
           })
           .catch(() => {

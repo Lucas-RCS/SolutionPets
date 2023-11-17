@@ -1,14 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Calendar, CalendarPlus, FloppyDisk, Trash } from "phosphor-react-native";
+import {
+  Calendar,
+  CalendarPlus,
+  FloppyDisk,
+  Trash,
+} from "phosphor-react-native";
 import style from "./CalendaryCss";
 import moment from "moment-timezone";
 import { v4 as idDate } from "uuid";
+import activationHook from "../../../api/hooks/activation";
 
 export function Calendary() {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDates, setSelectedDates] = useState([]);
+
+  useEffect(() => {
+    activationHook
+      .get()
+      .then((data) => {
+        setSelectedDates(
+          data.map((data) => {
+            return { id: idDate(), date: data };
+          })
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  function saveDates() {
+    activationHook
+      .set(selectedDates.map((item) => item.date))
+      .then((data) => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -28,12 +58,10 @@ export function Calendary() {
     }
   };
 
-
   const handleConfirm = (date) => {
-    const formattedDate = formatDateTime(date);
     const id = idDate();
 
-    setSelectedDates([...selectedDates, { id, date: formattedDate }]);
+    setSelectedDates([...selectedDates, { id, date: date }]);
 
     hideDatePicker();
   };
@@ -63,17 +91,21 @@ export function Calendary() {
         renderItem={({ item }) => (
           <View style={style.dateCard}>
             <Calendar size={32} weight="duotone" color="#f8f9fc" />
-            <Text style={style.txtDateTime}>{`Dia: ${formatDateTime(item.date)}`}</Text>
+            <Text style={style.txtDateTime}>{`Dia: ${moment(item.date)
+              .format("DD/MM/YYYY HH:mm:ss")
+              .toString()}`}</Text>
             <TouchableOpacity
               onPress={() => handleDeleteDate(item.id)}
               style={style.deleteButton}
             >
-              <Text><Trash size={30} weight="duotone" color="#d61818" /></Text>
+              <Text>
+                <Trash size={30} weight="duotone" color="#d61818" />
+              </Text>
             </TouchableOpacity>
           </View>
         )}
       />
-      <TouchableOpacity onPress={() => {}} style={style.saveBtn}>
+      <TouchableOpacity style={style.saveBtn} onPress={saveDates}>
         <FloppyDisk size={38} weight="duotone" color="#141415" />
       </TouchableOpacity>
     </View>
