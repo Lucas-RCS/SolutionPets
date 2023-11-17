@@ -3,22 +3,27 @@ import { View, ImageBackground, Text } from "react-native";
 import style from "./DashboardCss.js";
 import { Div, DivCard } from "../../elements/common.js";
 import { Image } from "react-native";
-import { Info, Scales } from "phosphor-react-native";
+import { Envelope, Info, Scales } from "phosphor-react-native";
 import { Tooltip } from "react-native-elements";
 import infoHook from "../../../api/hooks/info";
 
 export function Dashboard() {
-  const [infos, setInfos] = useState([]);
+  const [lastResquest, setLastResquest] = useState([]);
+  const [feedWeight, setFeedWeight] = useState([]);
 
   useEffect(() => {
-    infoHook()
-      .then(async (data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
+    const interval = setInterval(() => {
+      infoHook()
+        .then(async (data) => {
+          setLastResquest(data.last_resquest);
+          setFeedWeight(data.feed_weight);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }, 7000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <View>
@@ -72,7 +77,33 @@ export function Dashboard() {
             </View>
           </DivCard>
           <DivCard style={style.card}>
-            <View style={style.contentCard}></View>
+            <View style={style.containerCard}>
+              <View style={style.viewInfo}>
+                <Tooltip
+                  backgroundColor="#48ff9a"
+                  height={60}
+                  width={300}
+                  popover={
+                    <Text style={style.tooltipTxt}>
+                      Momento em que o dispositivo realizou a sua ultima
+                      requisição.
+                    </Text>
+                  }
+                >
+                  <Info size={32} weight="duotone" color="#141415" />
+                </Tooltip>
+                <Text style={style.txtInfo}>Ultima Requisição</Text>
+              </View>
+
+              <View style={style.contentCard}>
+                <Div style={style.divLeft2}>
+                  <Text style={style.txtCardLeft2}>00/00/0000</Text>
+                </Div>
+                <Div style={style.divRight2}>
+                  <Envelope size={80} weight="duotone" color="#141415" />
+                </Div>
+              </View>
+            </View>
           </DivCard>
         </Div>
       </View>

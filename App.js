@@ -11,6 +11,15 @@ import { Text } from "react-native-elements";
 import { TextInput } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import loginHook from "./api/hooks/login";
+import { decode, encode } from "base-64";
+
+if (!global.btoa) {
+  global.btoa = encode;
+}
+
+if (!global.atob) {
+  global.atob = decode;
+}
 
 function HomeScreen() {
   return (
@@ -68,15 +77,16 @@ export default function App() {
       {login ? (
         <View style={style.container}>
           <View style={style.img}>
-            <Image
-              source={require('./assets/img/logo_green.png')}
-              style={{ width: "100%", height: "100%"}}
-            />
-            
+            <View style={style.contentImage}>
+              <Image
+                source={require("./assets/img/logo_green.png")}
+                style={{ width: "100%", height: "100%" }}
+              />
+            </View>
           </View>
           <View style={style.content}>
             <Text style={style.title}>{text}</Text>
-            <View style={style.form} >
+            <View style={style.form}>
               <TextInput
                 value={pass}
                 onChangeText={(value) => setPass(value)}
@@ -88,7 +98,7 @@ export default function App() {
               </TouchableOpacity>
             </View>
           </View>
-        </View >
+        </View>
       ) : (
         <NavigationContainer>
           <Tab.Navigator
@@ -215,8 +225,7 @@ export default function App() {
             />
           </Tab.Navigator>
         </NavigationContainer>
-      )
-      }
+      )}
     </>
   );
 }
