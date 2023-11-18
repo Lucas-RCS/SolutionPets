@@ -138,6 +138,12 @@ const style = StyleSheet.create({
     fontWeight: "bold",
     color: "#141415",
   },
+  timeText: {
+    fontSize: 18,
+    textAlign: "center",
+    color: "#14141555",
+    fontWeight: "bold",
+  },
 });
 
 export default style;

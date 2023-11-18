@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default {
   url: "https://api.lucas-rcs.repl.co",
-  serialNumber: "1YpCljGie2XPULY",
+  serialNumber: "BOwr1TbO45EJzbk",
   activateKey: async () => {
     try {
       const value = await AsyncStorage.getItem("pass");

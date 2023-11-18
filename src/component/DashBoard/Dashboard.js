@@ -115,6 +115,10 @@ export function Dashboard() {
                   <Envelope size={80} weight="duotone" color="#141415" />
                 </Div>
               </View>
+              <Text style={style.timeText}>
+                Há {lastResquest.days} dias {lastResquest.minutes} minutos e{" "}
+                {lastResquest.seconds} segundos
+              </Text>
             </View>
           </DivCard>
         </Div>

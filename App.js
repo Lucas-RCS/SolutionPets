@@ -50,7 +50,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   const [login, setLogin] = useState(true);
   const [text, setText] = useState("Solution Pets");
-  const [pass, setPass] = useState("Lucão");
+  const [pass, setPass] = useState("");
 
   const makeLogin = async () => {
     loginHook(pass)

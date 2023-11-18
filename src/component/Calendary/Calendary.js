@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, Alert } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import {
   Calendar,
@@ -34,9 +34,12 @@ export function Calendary() {
   function saveDates() {
     activationHook
       .set(selectedDates.map((item) => item.date))
-      .then((data) => {})
+      .then((data) => {
+        Alert.alert("Sucesso", "Datas salvas com sucesso");
+      })
       .catch((error) => {
         console.log(error);
+        Alert.alert("Alerta", "Datas inválidas");
       });
   }
 
